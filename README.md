@@ -1,11 +1,8 @@
 # Fatmike's Nanomites
 
 A custom implementation of the *Nanomites protection technology* for Windows executables (x86 and x64) originally introduced by *Silicon Realms* in 1999 for the *Armadillo Protector*.  
-
 It enhances runtime protection against both static and dynamic analysis by replacing conditional and unconditional jumps with *int 3* (0xCC) instructions, causing *EXCEPTION_BREAKPOINT* exceptions, which are dynamically resolved at runtime without restoring the original instruction bytes.  
-
-In my implementation, *Nanomites* are applied to the target executable in a post-build step, and a dedicated *Tracer* class manages secure execution at runtime. This concept will be familiar to anyone who has seen my [Just-In-Time Decrypter](https://github.com/Fatmike-GH/JitDecrypter).  
-
+In my implementation, *Nanomites* are applied to the target executable in a post-build step, and a dedicated *Tracer* class manages secure execution at runtime.  
 *Nanomites* complicate reverse engineering and debugging by obscuring control flow and generating continuous debugging exceptions at *Nanomite* locations, making step-by-step tracing and analysis more difficult.
 
 **Keywords**:  
@@ -24,6 +21,8 @@ Exe Protector, Anti-Debug, Anti-Debugging, Obfuscation, Anti-Static-Analysis, Co
 - Applying *Nanomites* in a post-build step via a separate tool.
 
 ## Concept
+
+Some of the used concepts will be familiar to anyone who has seen my [Just-In-Time Decrypter](https://github.com/Fatmike-GH/JitDecrypter).  
 
 ### Marking Code for Nanomites
 
